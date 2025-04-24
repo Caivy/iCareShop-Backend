@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const Product = require('../models/Product');
+const verifyToken = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -12,11 +13,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/upload', upload.single('img'), async (req, res) => {
+function generateProductId() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+router.post('/upload', verifyToken, upload.single('img'), async (req, res) => {
   try {
-    const { id, name, priceUsd, priceKhr, category, subcategory } = req.body;
+    const { name, priceUsd, priceKhr, category, subcategory } = req.body;
     const product = new Product({
-      id,
+      id: generateProductId(),
       name,
       priceUsd,
       priceKhr,
