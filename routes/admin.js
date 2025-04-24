@@ -16,7 +16,7 @@ function generateProductId() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-router.post('/upload', verifyToken, upload.single('img'), async (req, res) => {
+router.post('/upload', upload.single('img'), async (req, res) => {
   try {
     const { name, priceUsd, priceKhr, category, subcategory } = req.body;
     const product = new Product({
