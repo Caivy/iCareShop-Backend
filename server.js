@@ -7,7 +7,6 @@ const path = require('path');
 const productRoutes = require('./routes/products');
 const adminRoutes = require('./routes/admin');
 const categoryRoutes = require('./routes/categories');
-const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = 3000;
